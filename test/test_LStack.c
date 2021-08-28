@@ -1,11 +1,12 @@
-#include"../DataStructure/AStack.h"
+#include"../DataStructure/LStack.h"
 
 int main(){
-    AStack s = create(10);
+    LStack s = create();
     for(int i = 0; i < 10; i++){
         push(&s, i);
+        // printf("%d ", topValue(s));
     }
-    while(s.top != s.size){
+    while(s.top != NULL){
         printf("%d ", pop(&s));
     }
     return 0;

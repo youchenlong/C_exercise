@@ -8,7 +8,7 @@ typedef struct{
     int* listArray;//容纳顺序表元素
 }AList;
 
-AList *create(int size);     //创建顺序表
+AList create(int size);     //创建顺序表
 void clear(AList *alist);   //清空顺序表的内容
 
 void append(AList *alist, int value);   //在末尾添加元素
@@ -20,19 +20,18 @@ void next(AList *alist);                //当前元素向后移
 void prev(AList *alist);                //当前元素向前移
 void moveToPos(AList *alist, int i);    //当前元素移到位置i
 
-int getValue(AList *alist);             //获取当前元素的值
-void traverse(AList *alist);            //遍历
+int getValue(AList alist);             //获取当前元素的值
+void traverse(AList alist);            //遍历
 
 
 
-AList *create(int size){
+AList create(int size){
     AList *alist = (AList *)malloc(sizeof(AList));
     alist->maxSize = size;
     alist->listSize = 0;
-    alist->curr = 0;  
-    // alist->listArray = (int *)calloc(alist->maxSize, sizeof(int));   
+    alist->curr = 0;    
     alist->listArray = (int *)malloc(alist->maxSize*sizeof(int));    
-    return alist;
+    return *alist;
 }
 
 void clear(AList *alist){
@@ -104,16 +103,12 @@ void moveToPos(AList *alist, int i){
     alist->curr = i;
 }
 
-int getValue(AList *alist){   
-    // if(alist->curr < 0 || alist->curr > alist->listSize){
-    //     printf("%s", "no current element");
-    //     exit(0);
-    // }
-    return alist->listArray[alist->curr];
+int getValue(AList alist){   
+    return alist.listArray[alist.curr];
 }
 
-void traverse(AList *alist){
-    for(moveToStart(alist); alist->curr < alist->listSize; next(alist)){
-        printf("%d", getValue(alist));
+void traverse(AList alist){
+    for(moveToStart(&alist); alist.curr < alist.listSize; next(&alist)){
+        printf("%d ", getValue(alist));
     }
 }

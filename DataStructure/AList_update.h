@@ -29,9 +29,7 @@ void next(AList *alist);                        //当前元素向后移
 void prev(AList *alist);                        //当前元素向前移
 void moveToPos(AList *alist, int i);            //当前元素移到位置i
 DataType getValue(AList alist);                 //获取当前元素的值
-
 void traverse(AList alist);                     //遍历
-
 
 
 AList create(int size){
