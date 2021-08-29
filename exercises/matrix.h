@@ -17,6 +17,9 @@ void transpose(matrix *m);                                      // 转置
 void row_trans_swap(matrix *m, int i, int j);                   // 交换两行(行和列从0开始)
 void row_trans_sub(matrix *m, int i, int j, float multiple);    // 两行相减(第i行减去第j行的multiple倍)
 void row_echelon(matrix *m);                                    // 将矩阵转换为行阶梯型
+void col_trans_swap(matrix *m, int i, int j);                   // 交换两列(行和列从0开始)
+void col_trans_sub(matrix *m, int i, int j, float multiple);    // 两列相减(第i列减去第j列的mutliple倍)
+void col_echelon(matrix *m);                                    // 将矩阵转换为列阶梯型
 int rank(matrix m);                                             // 求矩阵的秩
 int inversion_number(int array[], int N);                       // 逆序数
 float det(matrix m);                                            // 计算方阵的行列式
@@ -139,9 +142,9 @@ void row_trans_sub(matrix *m, int i, int j, float multiple){
 void row_echelon(matrix *m){
     int i = 0;
     int j = 0;
-    if(m->row < m->col){
-        transpose(m);
-    }
+    // if(m->row < m->col){
+    //     transpose(m);
+    // }
     while(i < m->row && j < m->col){
         // 情形1：如果matrix[i][j]不为0
         if(m->matrix[i][j] != 0){
@@ -190,6 +193,113 @@ void row_echelon(matrix *m){
             i++;
             j++;
         }
+    }
+}
+
+void col_trans_swap(matrix *m, int i, int j){
+    // 交换两列
+    float temp;
+    for(int k = 0; k < m->col; k++){
+        temp = m->matrix[k][i];
+        m->matrix[k][i] = m->matrix[k][j];
+        m->matrix[k][j] = temp;
+    }
+}
+
+void col_trans_sub(matrix *m, int i, int j, float multiple){
+    // 两列相减
+    for(int k = 0; k < m->col; k++){
+        m->matrix[k][i] -= m->matrix[k][j] * multiple;
+        if(fabs(m->matrix[k][i]) < __FLT_EPSILON__){
+            m->matrix[k][i] = 0;
+        }
+    }
+}
+
+void col_echelon(matrix *m){
+    int i = 0;
+    int j = 0;
+    while(i < m->row && j < m->col){
+        // // 情形1：如果matrix[i][j]不为0
+        // if(m->matrix[i][j] != 0){
+        //     // 首元素置1
+        //     float divisor = m->matrix[i][j];
+        //     for(int k = i; k < m->row; k++){
+        //         m->matrix[k][j] /= divisor;
+        //         if(fabs(m->matrix[k][j]) < __FLT_EPSILON__){
+        //             m->matrix[k][j] = 0;
+        //         }
+        //     }
+        //     // 同一行右方元素置0
+        //     for(int k = j + 1; k < m->col; k++){
+        //         col_trans_sub(m, k, j, m->matrix[i][k]);
+        //     }
+        //     i++;
+        //     j++;
+        // }
+        // // 情形2：如果matrix[i][j]为0
+        // else{
+        //     // 向右寻找matrix[i][k]不为0的列
+        //     int k;
+        //     for(k = j + 1; k < m->col; k++){
+        //         if(m->matrix[i][k] != 0){
+        //             break;
+        //         }
+        //     }
+        //     // 情形2.1：如果不存在这样的列，则继续循环，处理下一行
+        //     if(k >= m->col){
+        //         i++;
+        //         continue;
+        //     }
+        //     // 情形2.2：如果存在这样的列k，交换第j列和第k列
+        //     col_trans_swap(m, j, k);
+        //     // 后续步骤与情形1相同
+        //     float divisor = m->matrix[i][j];
+        //     for(int t = i; t < m->row; t++){
+        //         m->matrix[t][j] /= divisor;
+        //         if(fabs(m->matrix[t][j]) < __FLT_EPSILON__){
+        //             m->matrix[t][j] = 0;
+        //         }
+        //     }
+        //     for(int t = j + 1; t < m->col; t++){
+        //         col_trans_sub(m, t, j, m->matrix[i][t]);
+        //     }
+        //     i++;
+        //     j++;
+        // }
+
+        // 情形2：如果matrix[i][j]为0
+        if(m->matrix[i][j] == 0){
+            // 向右寻找matrix[i][k]不为0的列
+            int k;
+            for(k = j + 1; k < m->col; k++){
+                if(m->matrix[i][k] != 0){
+                    break;
+                }
+            }
+            // 情形2.1：如果不存在这样的列，则继续循环，处理下一行
+            if(k >= m->col){
+                i++;
+                continue;
+            }
+            // 情形2.2：如果存在这样的列k，交换第j列和第k列
+            col_trans_swap(m, j, k);
+        }
+        // 情形1和2共有的步骤
+        // 首元素置1
+        float divisor = m->matrix[i][j];
+        for(int k = i; k < m->row; k++){
+            m->matrix[k][j] /= divisor;
+            if(fabs(m->matrix[k][j]) < __FLT_EPSILON__){
+                m->matrix[k][j] = 0;
+            }
+        }
+        // 同一行右方元素置0
+        for(int k = j + 1; k < m->col; k++){
+            col_trans_sub(m, k, j, m->matrix[i][k]);
+        }
+        i++;
+        j++;
     }
 }
 

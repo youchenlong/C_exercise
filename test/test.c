@@ -2,12 +2,11 @@
 #include<stdint.h>
 
 int main(){
-    short v = -12345;
-    unsigned short uv = (unsigned short)v;
-    printf("v = %d, uv = %u\n", v, uv);
-
-    // unsigned int u = 4294967295u;
-    // int tu = (int)u;
-    // printf("u = %u, tu = %d\n", u, tu);
+    if(-INT32_MAX-1 < INT32_MAX){
+        printf("true");
+    }
+    else{
+        printf("false");
+    }
     return 0;
 }

@@ -54,12 +54,25 @@ int main(){
     // printf("the factor of the matrix(determinant) is %f", res);
 
     // 逆矩阵
-    matrix A;
-    create(&A, 3, 3);
-    init_matrix(&A);
-    matrix inv = inverse(A);
-    print_matrix(inv);
+    // matrix A;
+    // create(&A, 3, 3);
+    // init_matrix(&A);
+    // matrix inv = inverse(A);
+    // print_matrix(inv);
 
+    // 矩阵的行阶梯型
+    // matrix A;
+    // create(&A, 3, 4);
+    // init_matrix(&A);
+    // row_echelon(&A);
+    // print_matrix(A);
+
+    // 矩阵的列阶梯型
+    // matrix A;
+    // create(&A, 4, 4);
+    // init_matrix(&A);
+    // col_echelon(&A);
+    // print_matrix(A);
 
     return 0;
 }
