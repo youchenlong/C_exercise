@@ -10,7 +10,7 @@ typedef struct{
     node *head;         // 头节点
     node *tail;         // 尾节点
     node *curr;         // 当前节点(为了方便进行插入或删除操作，实际上操作的是当前节点的下一个节点)
-    int count;          // 链表当前节点数
+    int count;          // 链表当前节点数(空节点除外)
 }LList;
 
 LList create();                                 // 创建链表
@@ -26,15 +26,16 @@ int getValue(LList llist);                      // 获取当前节点的元素
 void traverse(LList llist);                     // 遍历链表
 
 
-void init(LList *llist){
-    llist->count = 0; 
-    // 为了减少判定链表是否为空的代码，加入一个空节点，但不修改链表节点数count的值
+void init(LList *llist){    
+    // 当链表为空时，头节点、尾节点、当前节点无处可指，在插入删除操作时，需要增加额外的代码。
+    // 为此，增加一个空节点
     node *n = (node *)malloc(sizeof(node));
     n->next = NULL;
-    // 头节点，尾节点，当前节点指向同一个节点
+    // 头节点，尾节点，当前节点指向空节点
     llist->head = n;
     llist->curr = n;
     llist->tail = n;
+    llist->count = 0;
 }
 
 void removeall(LList *llist){
@@ -70,9 +71,7 @@ void append(LList *llist, int value){
 void insert(LList *llist, int value){
     node *n = (node *)malloc(sizeof(node));
     n->value = value;
-    // 该节点下一个节点指向当前节点的下一个节点
     n->next = llist->curr->next;
-    // 当前节点的下一个节点指向该节点
     llist->curr->next = n;
     // 如果当前节点为尾节点，那么尾节点需要指向该节点(尾节点始终应该在链表末尾)
     if(llist->curr == llist->tail){
@@ -82,17 +81,15 @@ void insert(LList *llist, int value){
 }
 
 int delete(LList *llist){
+    // getValue已经判断了是否为空的情况
     int value = getValue(*llist);
-    // 待删除的节点
-    node *n = llist->curr->next;
-    // 如果待删除的节点为尾节点，那么尾节点需要指向当前节点(因为尾节点不应该被释放)
+    node *temp = llist->curr->next;
+    // 如果待删除的节点为尾节点，那么尾节点需要指向当前节点(因为尾节点不应该无处可指)
     if(llist->curr->next == llist->tail){
         llist->tail = llist->curr;
     }
-    // 链表跳过待删除节点
     llist->curr->next = llist->curr->next->next;
-    // 释放待删除节点
-    free(n);
+    free(temp);
     llist->count--;
     return value;
 }

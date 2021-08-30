@@ -15,12 +15,13 @@ LStack create();                            // 创建栈
 void clear(LStack *s);                      // 清空栈
 void push(LStack *s, int val);              // 入栈
 int pop(LStack *s);                         // 出栈
-int topValue(LStack s);                    // 栈顶元素
+int topValue(LStack s);                     // 栈顶元素
 int length(LStack s);                       // 已有元素的长度
 
 
 LStack create(){
     LStack *s = (LStack *)malloc(sizeof(LStack));
+    // 即使头指针无处可指，入栈出栈操作也不会受到影响。因此，不需要空节点
     s->top = NULL;
     s->count = 0;
     return *s;
@@ -48,12 +49,12 @@ int pop(LStack *s){
         printf("LStack is empty");
         exit(0);
     }
-    int val = s->top->value;
+    int value = s->top->value;
     node *temp = s->top;
     s->top = s->top->next;
     free(temp);
     s->count--;
-    return val;
+    return value;
 }
 
 int topValue(LStack s){

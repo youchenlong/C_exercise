@@ -61,11 +61,11 @@ int main(){
     // print_matrix(inv);
 
     // 矩阵的行阶梯型
-    // matrix A;
-    // create(&A, 3, 4);
-    // init_matrix(&A);
-    // row_echelon(&A);
-    // print_matrix(A);
+    matrix A;
+    create(&A, 3, 4);
+    init_matrix(&A);
+    row_echelon(&A);
+    print_matrix(A);
 
     // 矩阵的列阶梯型
     // matrix A;
