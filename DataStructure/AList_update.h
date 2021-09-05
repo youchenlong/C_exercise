@@ -21,7 +21,7 @@ typedef struct{
 AList create(int size);                         //创建顺序表
 void clear(AList *alist);                       //清空顺序表的内容
 void append(AList *alist, DataType value);      //在末尾添加元素
-void insert(AList *alist, DataType value);      //插入一个元素
+void insert(AList *alist, DataType value);      //插入一个元素到当前位置
 DataType delete(AList *alist);                  //删除并返回当前元素
 void moveToStart(AList *alist);                 //当前元素的位置移到首位
 void moveToEnd(AList *alist);                   //当前元素的位置移到末尾
@@ -45,7 +45,7 @@ void clear(AList *alist){
     free(alist->listArray);
     alist->listSize = 0;
     alist->curr = 0;
-    alist->listArray = (DataType *)calloc(alist->maxSize, sizeof(DataType));
+    alist->listArray = (DataType *)malloc(sizeof(DataType) * alist->maxSize);
 }
 
 void append(AList *alist, DataType value){
