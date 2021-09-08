@@ -8,6 +8,7 @@ int main(){
     append(&llist, stud1);
     append(&llist, stud2);
     append(&llist, stud3);
-    traverse(llist);
+    // traverse(llist);
+    printf("currPos=%d\n", currPos(llist));
     return 0;
 }

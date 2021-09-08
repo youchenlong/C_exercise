@@ -29,6 +29,7 @@ DataType delete(LList *llist);                          // 在当前位置删除
 void moveToStart(LList *llist);                         // 移到表头
 void moveToEnd(LList *llist);                           // 移到表位
 void moveToPos(LList *llist, int pos);                  // 移到指定位置(pos从0开始)
+int currPos(LList llist);                               // 当前位置
 void next(LList *llist);                                // 当前位置向后移
 DataType getValue(LList llist);                         // 获取当前节点的元素
 void traverse(LList llist);                             // 遍历链表
@@ -121,6 +122,15 @@ void moveToPos(LList *llist, int pos){
         llist->curr = llist->curr->next;
         i++;
     }
+}
+
+int currPos(LList llist){
+    node *temp = llist.head;
+    int i;
+    for(i = 0; llist.curr != temp; i++){
+        temp = temp->next;
+    }
+    return i;
 }
 
 void next(LList *llist){
