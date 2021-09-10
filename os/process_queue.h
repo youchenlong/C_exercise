@@ -27,7 +27,7 @@ process getValue(process_queue q);                              // 获取当前�
 process FCFS_POP(process_queue *q, int timer);                              // 最先到达的进程
 process SJF_POP(process_queue *q, int timer);                               // 剩余执行时间最短的进程
 process PS_POP(process_queue *q, int timer);                                // 优先级最高的进程
-process RR_POP(process_queue *q, int timer, int *pos);                      // 轮流执行
+process RR_POP(process_queue *q, int timer);                                // 轮流执行
 void waiting_queue(process_queue *q);                                       // 队列中所有进程等待一个时间片
 
 
@@ -164,7 +164,7 @@ process FCFS_POP(process_queue *q, int timer){
 }
 
 process SJF_POP(process_queue *q, int timer){
-    int pos = -1;    // 记录剩余执行时间最短的进程所在的位置
+    int pos = 0;    // 记录剩余执行时间最短的进程所在的位置
     int i = 0;      // 记录当前位置
     int remaining_execution_time = INT_MAX;
     moveToStart(q);
@@ -182,12 +182,12 @@ process SJF_POP(process_queue *q, int timer){
 }
 
 process PS_POP(process_queue *q, int timer){
-    int pos = -1;    // 记录剩余执行时间最短的进程所在的位置
+    int pos = 0;    // 记录剩余执行时间最短的进程所在的位置
     int i = 0;      // 记录当前位置
-    int priority = INT_MAX;
+    int priority = INT_MIN;
     moveToStart(q);
     while(q->curr != q->tail){
-        if(getValue(*q).arrival_time <= timer && getValue(*q).priority < priority){
+        if(getValue(*q).arrival_time <= timer && getValue(*q).priority > priority){
             priority = getValue(*q).priority;
             pos = i;
         }
@@ -199,14 +199,14 @@ process PS_POP(process_queue *q, int timer){
     return delete(q);
 }
 
-process RR_POP(process_queue *q, int timer, int *pos){
-    int i = 0;// 如果当前没有进程到达，用来防止死循环
-    while(getValue(*q).arrival_time > timer && i < q->count){
-        *pos = (*pos+1)%q->count;
-        moveToPos(q, *pos);
-        i++;
+process RR_POP(process_queue *q, int timer){
+    moveToStart(q);
+    while(q->curr != q->tail){
+        if(getValue(*q).arrival_time <= timer){
+            break;
+        }
+        next(q);
     }
-    // 如果当前没有进程，则返回队列中第一个进程
     return delete(q);
 }
 
