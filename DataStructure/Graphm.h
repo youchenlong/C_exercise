@@ -1,7 +1,8 @@
 #include<stdlib.h>
 #include<stdio.h>
 
-#define UNVISITED 0x7fffffff
+#define UNVISITED 0
+#define VISITED 1   
 
 typedef struct{
     int numVertex;          // 点数

@@ -2,7 +2,8 @@
 #include<stdlib.h>
 #include<stdio.h>
 
-#define UNVISITED 0x7fffffff
+#define UNVISITED 0
+#define VISITED 1
 
 typedef struct{
     int numVertex;              // 点数
@@ -21,8 +22,8 @@ void delEdge(Graphl *g, int v1, int v2);                     // 删除边
 int getWeight(Graphl g, int v1, int v2);                     // 获取边的权重
 void setMark(Graphl *g, int v, int val);                     // 设置点的值
 int getMark(Graphl g, int v);                                // 获取点的值
-int firstNeighbor(Graphl g, int v);                                  // 返回v的第一个邻接点
-int nextNeighbor(Graphl g, int v, int w);                            // 返回v的w之后的下一个邻接点
+int firstNeighbor(Graphl g, int v);                          // 返回v的第一个邻接点
+int nextNeighbor(Graphl g, int v, int w);                    // 返回v的w之后的下一个邻接点
 
 
 Graphl create_Graphl(int numVertex){
