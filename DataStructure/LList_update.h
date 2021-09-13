@@ -26,12 +26,13 @@ void clear(LList *llist);                               // 清空链表
 void append(LList *llist, DataType value);              // 在链表末尾添加节点
 void insert(LList *llist, DataType value);              // 在当前位置插入节点
 DataType delete(LList *llist);                          // 在当前位置删除节点
+int currPos(LList llist);                               // 获取当前位置
 void moveToStart(LList *llist);                         // 移到表头
 void moveToEnd(LList *llist);                           // 移到表位
 void moveToPos(LList *llist, int pos);                  // 移到指定位置(pos从0开始)
-int currPos(LList llist);                               // 当前位置
 void next(LList *llist);                                // 当前位置向后移
 DataType getValue(LList llist);                         // 获取当前节点的元素
+int length(LList llist);                                // 获取链表长度
 void traverse(LList llist);                             // 遍历链表
 
 
@@ -103,6 +104,15 @@ DataType delete(LList *llist){
     return value;
 }
 
+int currPos(LList llist){
+    node *temp = llist.head;
+    int i;
+    for(i = 0; temp != llist.curr; i++){
+        temp = temp->next;
+    }
+    return i;
+}
+
 void moveToStart(LList *llist){    
     llist->curr = llist->head;
 }
@@ -124,15 +134,6 @@ void moveToPos(LList *llist, int pos){
     }
 }
 
-int currPos(LList llist){
-    node *temp = llist.head;
-    int i;
-    for(i = 0; llist.curr != temp; i++){
-        temp = temp->next;
-    }
-    return i;
-}
-
 void next(LList *llist){
     if(llist->curr != llist->tail){
         llist->curr = llist->curr->next;
@@ -146,6 +147,10 @@ DataType getValue(LList llist){
     }
     // 返回的是当前节点的下一个节点的值
     return llist.curr->next->value;
+}
+
+int length(LList llist){
+    return llist.count;
 }
 
 void traverse(LList llist){
