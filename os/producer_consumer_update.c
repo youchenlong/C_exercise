@@ -4,8 +4,9 @@
 #include<unistd.h>
 
 /*
-用一个变量 counter 来计数
-race--竞争条件没有解决
+方法--用一个变量 counter 来计数
+
+缺点--race
 */
 
 #define BUFFER_SIZE 10

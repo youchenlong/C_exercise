@@ -4,6 +4,10 @@
 #include<unistd.h>  /*sleep*/
 #include<stdlib.h>  /*srand*/
 
+/*
+方法--信号量解决同步问题
+*/
+
 #define BUFFER_SIZE 10
 int buffer[BUFFER_SIZE];    // 共享变量
 int in = 0;
