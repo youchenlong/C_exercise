@@ -7,7 +7,7 @@ typedef struct{
     float *array;
 }vector;
 
-void create(vector *v, int d);                          // 创建一个向量
+void create_vector(vector *v, int d);                          // 创建一个向量
 void init_vector(vector *v);                            // 初始化向量
 vector add(vector v1, vector v2);                       // 加法
 vector sub(vector v1, vector v2);                       // 减法
@@ -17,7 +17,7 @@ float dot(vector v1, vector v2);                        // 向量内积
 vector *Schmidt_orthogonalization(vector *v, int n);    // 施密特标准正交化
 
 
-void create(vector *v, int d){
+void create_vector(vector *v, int d){
     v->dimension = d;
     v->array = (float *)malloc(sizeof(float)*d);
     for(int i = 0; i < v->dimension; i++){

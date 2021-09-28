@@ -8,7 +8,7 @@ typedef struct{
     float **matrix;     // 元素
 }matrix;
 
-void create(matrix *m, int row, int col);                       // 创建
+void create_matrix(matrix *m, int row, int col);                // 创建
 void init_matrix(matrix *m);                                    // 初始化
 matrix add(matrix A, matrix B);                                 // 加法
 matrix sub(matrix A, matrix B);                                 // 减法
@@ -29,7 +29,7 @@ matrix inverse(matrix m);                                       // 求逆矩阵
 void print_matrix(matrix m);                                    // 输出
 
 
-void create(matrix *m, int row, int col){   
+void create_matrix(matrix *m, int row, int col){   
     // 声明一个矩阵
     m->row = row;
     m->col = col;

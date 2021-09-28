@@ -1,8 +1,7 @@
-#include"DataStructure/AStack.h"
+#include"../DataStructure/LStack.h"
 
 void print_binary(int decimal){
-    AStack s;
-    create(&s, 20);   
+    LStack s = create();   
     int quotient = decimal / 2;
     int remainder = decimal % 2;
     while(1){
@@ -11,7 +10,7 @@ void print_binary(int decimal){
         quotient = quotient / 2;
         if(quotient == 0 && remainder == 0)break;  
     }
-    while(s.sp != s.size){
+    while(s.count != 0){
         printf("%d", pop(&s));
     }
 }

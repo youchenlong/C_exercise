@@ -1,0 +1,5 @@
+安全目标--CIA   confidentiality integrity availability
+安全攻击--
+        active_attack       modification(alter relay reorder) masquerade replay DoS     
+        passive_attack      message_release traffic_analysis
+安全服务--CANADA    confidentiality availability nonrepudiation authentication data_integrity access_control
